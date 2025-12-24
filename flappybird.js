@@ -47,7 +47,7 @@ window.onload = () => {
 
     //load images
     birdImg = new Image();
-    birdImg.src = "./assets/flappybird.png";
+    birdImg.src = "./assets/flappybird.gif";
     birdImg.onload = () => {
         context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
     }
