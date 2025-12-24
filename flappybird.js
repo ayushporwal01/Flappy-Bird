@@ -32,14 +32,6 @@ let velocityX = -2; //pipes moving left speed
 let velocityY = 0; //bird jump speed
 let gravity = 0.4; 
 
-//audio 
-let bgMusic = new Audio("./assets/bgm_mario.mp3");
-bgMusic.loop = true;
-
-let jumpSound = new Audio("./assets/sfx_wing.wav")
-let dieSound = new Audio("./assets/sfx_die.wav")
-
-//gameOver and score
 let gameOver = false;
 let score = 0;
 
@@ -70,14 +62,11 @@ window.onload = () => {
     setInterval(placePipes, 1500); //every 1.5 seconds
     document.addEventListener("keydown", moveBird);
     board.addEventListener("mousedown", moveBird);
-
-    bgMusic.play();
 }
 
 function update() {
     requestAnimationFrame(update);
     if(gameOver) {
-       dieSound.play();
        return;
     }
     context.clearRect(0, 0, board.width, board.height);
@@ -90,7 +79,6 @@ function update() {
 
     if(bird.y > board.height) {
        gameOver = true;
-       dieSound.play();
     }
 
     //pipes
@@ -106,7 +94,6 @@ function update() {
 
         if(detectCollision(bird, pipe)) {
            gameOver = true;
-           dieSound.play();
         }
     }
 
@@ -121,14 +108,12 @@ function update() {
     context.fillText(score, 15, 48);
 
     if(gameOver) {
-       dieSound.play();
        context.fillText("GAME OVER", 40, 150);
     }
 }
 
 function placePipes() {
     if(gameOver) {
-       dieSound.play();
        return;
     } 
 
@@ -162,13 +147,11 @@ function placePipes() {
 function moveBird(e) {
     if(e.code == "Space" || e.code == "ArrowUp" || e.type == "mousedown") {
        //jump
-       jumpSound.play();
        velocityY = -6;
     }
 
     //reset game
     if(gameOver) {
-       dieSound.play();
        bird.y = birdY;
        pipeArray = [];
        score = 0;
