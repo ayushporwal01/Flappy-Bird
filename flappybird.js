@@ -36,7 +36,8 @@ let gravity = 0.4;
 let bgMusic = new Audio("./assets/bgm_mario.mp3");
 bgMusic.loop = true;
 
-let jumpSound = new Audio("./assets/sfx_die.wav")
+let jumpSound = new Audio("./assets/sfx_wing.wav")
+let dieSound = new Audio("./assets/sfx_die.wav")
 
 //gameOver and score
 let gameOver = false;
@@ -76,7 +77,7 @@ window.onload = () => {
 function update() {
     requestAnimationFrame(update);
     if(gameOver) {
-       
+       dieSound.play();
        return;
     }
     context.clearRect(0, 0, board.width, board.height);
@@ -89,6 +90,7 @@ function update() {
 
     if(bird.y > board.height) {
        gameOver = true;
+       dieSound.play();
     }
 
     //pipes
@@ -104,6 +106,7 @@ function update() {
 
         if(detectCollision(bird, pipe)) {
            gameOver = true;
+           dieSound.play();
         }
     }
 
@@ -118,12 +121,14 @@ function update() {
     context.fillText(score, 15, 48);
 
     if(gameOver) {
+       dieSound.play();
        context.fillText("GAME OVER", 40, 150);
     }
 }
 
 function placePipes() {
     if(gameOver) {
+       dieSound.play();
        return;
     } 
 
@@ -163,6 +168,7 @@ function moveBird(e) {
 
     //reset game
     if(gameOver) {
+       dieSound.play();
        bird.y = birdY;
        pipeArray = [];
        score = 0;
